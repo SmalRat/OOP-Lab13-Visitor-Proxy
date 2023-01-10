@@ -1,12 +1,17 @@
 package visitor;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
 public class Group<T> extends Task<T> {
-    public String groupUuid;
+    @Getter
+    @Setter
+    private String groupUuid;
     private List<Task<T>> tasks;
 
     public Group<T> addTask(Task<T> task) {
@@ -29,9 +34,11 @@ public class Group<T> extends Task<T> {
     @Override
     public void stamp(Visitor<T> visitor) {
         visitor.onGroupStart(this);
+        visitor.onTask(this);
         for (Task<T> task: tasks){
-            visitor.stamp(task);
+            task.stamp(visitor);
         }
+        visitor.onGroupEnd(this);
     }
 
     @Override
@@ -41,5 +48,10 @@ public class Group<T> extends Task<T> {
         for (Task<T> task: tasks) {
             task.apply(arg);
         }
+    }
+
+    public void apply_with_stamp(T arg, Visitor<T> visitor) {
+        apply(arg);
+        stamp(visitor);
     }
 }

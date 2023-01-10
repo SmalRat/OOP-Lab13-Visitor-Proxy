@@ -1,9 +1,9 @@
 package visitor;
 
-import java.util.Map;
+import java.util.List;
 
 public interface Visitor<T> {
-    Map<String, String> onGroupStart(Task<T> task);
-    Map<String, String> onGroupEnd(Task<T> task);
-    Map<String, String> onSignature(Task<T> task);
+    List<String> onGroupStart(Group<T> group);
+    List<String> onGroupEnd(Group<T> group);
+    List<String> onTask(Task<T> task);
 }
