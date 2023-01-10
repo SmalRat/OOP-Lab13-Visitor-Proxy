@@ -25,4 +25,12 @@ public class StampVisitor<T> implements Visitor<T>{
         task.setHeader("groups", String.join(", ", groups));
         return new LinkedList<>(groups);
     }
+
+    @Override
+    public List<String> onSignature(Signature<T> signature) {
+        groups.add(signature.getId());
+        this.onTask(signature);
+        groups.pop();
+        return new LinkedList<>(groups);
+    }
 }

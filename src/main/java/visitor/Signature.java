@@ -16,6 +16,6 @@ public class Signature<T> extends Task<T> {
 
     @Override
     public void stamp(Visitor<T> visitor) {
-        visitor.onTask(this);
+        visitor.onSignature(this);
     }
 }
